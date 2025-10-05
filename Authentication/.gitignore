@@ -31,3 +31,25 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### Spring Boot ###
+# Ignore application properties (to protect sensitive info)
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+# Logs and temp files
+*.log
+logs/
+tmp/
+*.tmp
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Java build artifacts
+*.jar
+*.war
+*.ear
+
