@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 public class SecurityConfig {
@@ -18,7 +19,8 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // disable CSRF for testing
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().authenticated() // all endpoints require login
+                        .requestMatchers("/auth/register").permitAll() // Allow registration without login
+                        .anyRequest().authenticated() // all other endpoints require login
                 )
                 .httpBasic(Customizer.withDefaults()); // use basic auth
 
@@ -38,5 +40,10 @@ public class SecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
