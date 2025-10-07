@@ -17,7 +17,11 @@ public class UserService {
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setRoles("USER");
+
+        // FIX: Use the role from the DTO instead of hardcoding "USER"
+        user.setRoles(dto.getRoles() != null ? dto.getRoles() : "USER");
+
         return userRepository.save(user);
     }
 }
+
