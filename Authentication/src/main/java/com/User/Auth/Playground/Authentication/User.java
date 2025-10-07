@@ -18,7 +18,28 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private String roles; // e.g. "USER" or "ADMIN"
+    private String roles;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    private boolean enabled = false; // for active/verified status
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    private String verificationToken; // unique token for email verification
+
 
     // Default constructor
     public User() {}
